@@ -1,0 +1,284 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>St. Patrick's Day Party</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Exo+2:wght@400;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #050f05;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Exo 2', sans-serif;
+    overflow: hidden;
+  }
+  .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  .particle { position: absolute; animation: floatUp linear infinite; opacity: 0; }
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; } 90% { opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+  .scene { perspective: 1200px; z-index: 1; }
+  .poster {
+    width: 520px; max-width: 95vw;
+    background: linear-gradient(160deg, #0d2e0d 0%, #1a5220 40%, #0d2e0d 100%);
+    border-radius: 24px;
+    box-shadow: 0 0 50px #2ecc4055, 0 0 100px #1a5a1a33, inset 0 0 80px #00000055;
+    padding: 36px 28px 28px;
+    position: relative; overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.08s ease;
+    cursor: pointer;
+  }
+  .poster-border {
+    position: absolute; inset: -2px; border-radius: 26px;
+    background: linear-gradient(45deg, #2ecc40, #ffd700, #2ecc40, #ffd700);
+    background-size: 400% 400%;
+    animation: borderAnim 3s ease infinite; z-index: -1;
+  }
+  @keyframes borderAnim {
+    0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
+  }
+  .shimmer {
+    position: absolute; inset: 0; border-radius: 24px;
+    background: linear-gradient(135deg, transparent 35%, rgba(255,255,255,0.06) 50%, transparent 65%);
+    animation: shimmerMove 3.5s linear infinite; pointer-events: none; z-index: 20;
+  }
+  @keyframes shimmerMove {
+    0% { transform: translateX(-120%) skewX(-15deg); }
+    100% { transform: translateX(220%) skewX(-15deg); }
+  }
+  .clover-bg {
+    position: absolute; inset: 0; opacity: 0.04; font-size: 2rem;
+    display: flex; flex-wrap: wrap; gap: 18px; padding: 10px;
+    pointer-events: none; overflow: hidden; z-index: 0;
+  }
+  .header-badge { text-align: center; position: relative; z-index: 5; margin-bottom: 2px; }
+  .celebrating {
+    font-size: 0.78rem; letter-spacing: 0.5em; color: #ffd700;
+    text-transform: uppercase; font-weight: 700; text-shadow: 0 0 12px #ffd700bb;
+  }
+  .st-patricks {
+    font-family: 'Cinzel Decorative', cursive; font-size: 2.7rem; font-weight: 900;
+    background: linear-gradient(180deg, #afffaf 0%, #2ecc40 50%, #1a8a1a 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    filter: drop-shadow(0 0 14px #2ecc4099);
+    animation: glowPulse 2.2s ease-in-out infinite; display: block; line-height: 1;
+  }
+  @keyframes glowPulse {
+    0%, 100% { filter: drop-shadow(0 0 8px #2ecc4077); }
+    50% { filter: drop-shadow(0 0 22px #2ecc40cc); }
+  }
+  .day-label {
+    font-family: 'Cinzel Decorative', cursive; font-size: 1.3rem;
+    color: #ffd700; letter-spacing: 0.2em; text-shadow: 0 0 14px #ffd700bb;
+  }
+  .divider { display: flex; align-items: center; gap: 10px; margin: 8px 0; position: relative; z-index: 5; }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #ffd700aa, transparent); }
+  .divider span { color: #ffd700; font-size: 1.1rem; }
+  .party-line {
+    text-align: center; font-size: 3.8rem; font-weight: 900; letter-spacing: 0.35em;
+    color: #fff; text-shadow: 0 0 20px #2ecc40, 0 0 40px #2ecc4088, 0 4px 0 #1a4f1a;
+    position: relative; z-index: 5;
+    animation: bounce 1.8s ease-in-out infinite; padding: 2px 0;
+  }
+  @keyframes bounce { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
+  .jello-section {
+    background: linear-gradient(135deg, #1f0a3288, #380a2288);
+    border: 1px solid #b044ddaa; border-radius: 14px; padding: 12px 14px;
+    text-align: center; position: relative; z-index: 5; margin-bottom: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .jello-section:hover { transform: scale(1.03); box-shadow: 0 0 25px #b044dd55; }
+  .jello-cups {
+    display: flex; justify-content: center; gap: 6px; margin-bottom: 4px; font-size: 1.8rem;
+    animation: wiggle 0.6s ease-in-out infinite alternate;
+  }
+  @keyframes wiggle { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+  .jello-title { font-size: 1.2rem; font-weight: 900; color: #e060ff; text-shadow: 0 0 12px #e060ffaa; letter-spacing: 0.08em; }
+  .jello-sub { font-size: 0.7rem; color: #cc88ff; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 2px; }
+  .info-row { display: flex; gap: 8px; margin-bottom: 10px; position: relative; z-index: 5; }
+  .info-card {
+    flex: 1; background: rgba(0,0,0,0.45); border: 1px solid #2ecc4055;
+    border-radius: 12px; padding: 10px 6px; text-align: center;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .info-card:hover { transform: translateY(-4px); border-color: #ffd700; box-shadow: 0 6px 20px #ffd70022; }
+  .info-card .ico { font-size: 1.5rem; display: block; }
+  .info-card .lbl { font-size: 0.58rem; color: #669966; letter-spacing: 0.25em; text-transform: uppercase; margin: 2px 0; }
+  .info-card .val { font-size: 0.95rem; font-weight: 900; color: #fff; }
+  .info-card .val.gold { color: #ffd700; }
+  .info-card .val.sm { font-size: 0.72rem; }
+  .rules-title {
+    font-size: 0.62rem; letter-spacing: 0.4em; color: #ffd700;
+    text-align: center; text-transform: uppercase; margin-bottom: 8px;
+    font-weight: 700; position: relative; z-index: 5; text-shadow: 0 0 8px #ffd70077;
+  }
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: relative; z-index: 5; margin-bottom: 10px; }
+  .rule-card {
+    background: rgba(0,0,0,0.35); border: 1px solid #2ecc4033; border-radius: 10px;
+    padding: 10px 12px; display: flex; align-items: center; gap: 10px; transition: all 0.2s;
+  }
+  .rule-card:hover { background: rgba(46,204,64,0.12); border-color: #2ecc40aa; transform: scale(1.03); }
+  .rule-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .rule-text { font-size: 0.82rem; font-weight: 900; color: #ccffcc; line-height: 1.2; }
+  .rule-text span { font-size: 0.64rem; font-weight: 400; color: #88aa88; display: block; }
+  .bars-section {
+    background: linear-gradient(135deg, rgba(255,215,0,0.07), rgba(255,140,0,0.07));
+    border: 1px solid #ffd70055; border-radius: 12px; padding: 10px 14px;
+    text-align: center; position: relative; z-index: 5; margin-bottom: 10px;
+    transition: box-shadow 0.2s;
+  }
+  .bars-section:hover { box-shadow: 0 0 20px #ffd70033; }
+  .bars-icons { font-size: 1.4rem; letter-spacing: 5px; margin-bottom: 2px; }
+  .bars-title { font-size: 1rem; font-weight: 900; color: #ffd700; text-shadow: 0 0 12px #ffd70099; letter-spacing: 0.08em; }
+  .bars-sub { font-size: 0.68rem; color: #ffcc66; letter-spacing: 0.15em; margin-top: 2px; }
+  .footer-text {
+    text-align: center; font-size: 0.6rem; color: #3a6a3a;
+    letter-spacing: 0.25em; text-transform: uppercase; position: relative; z-index: 5;
+  }
+  .sparkle {
+    position: fixed; pointer-events: none; z-index: 9999;
+    animation: sparkAnim 0.9s ease forwards; font-size: 1.4rem;
+  }
+  @keyframes sparkAnim {
+    0% { transform: scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: scale(2.5) rotate(200deg) translateY(-50px); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="particles" id="particles"></div>
+<div class="scene">
+  <div class="poster" id="poster">
+    <div class="poster-border"></div>
+    <div class="shimmer"></div>
+    <div class="clover-bg" id="cloverBg"></div>
+
+    <div class="header-badge">
+      <div class="celebrating">✦ &nbsp; Come Celebrate &nbsp; ✦</div>
+      <span class="st-patricks">St. Patrick's</span>
+      <div class="day-label">D &nbsp; A &nbsp; Y</div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><span>🍀</span><div class="divider-line"></div></div>
+    <div class="party-line">PARTY!</div>
+    <div class="divider"><div class="divider-line"></div><span>☘️</span><div class="divider-line"></div></div>
+
+    <div class="jello-section" onclick="burst(event)">
+      <div class="jello-cups">🟣🟢🔴🟡🟢🔵🟣</div>
+      <div class="jello-title">🎉 JELLO SHOTS PROVIDED 🎉</div>
+      <div class="jello-sub">Free for all guests &nbsp;·&nbsp; First come, first served</div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-card">
+        <span class="ico">📅</span>
+        <div class="lbl">Date</div>
+        <div class="val">SATURDAY</div>
+        <div class="val gold">MARCH 14</div>
+      </div>
+      <div class="info-card">
+        <span class="ico">⏰</span>
+        <div class="lbl">Time</div>
+        <div class="val gold" style="font-size:1.3rem">11–3</div>
+        <div class="val sm" style="color:#88aa88">AM – PM</div>
+      </div>
+      <div class="info-card">
+        <span class="ico">📍</span>
+        <div class="lbl">Address</div>
+        <div class="val sm">1077 S</div>
+        <div class="val gold sm">Downing St</div>
+      </div>
+    </div>
+
+    <div class="rules-title">⚔ &nbsp; The Rules &nbsp; ⚔</div>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-icon">🍺</div>
+        <div class="rule-text">BYOB
+          <span>Bring your own booze — coolers welcome!</span>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">💚</div>
+        <div class="rule-text">WEAR GREEN
+          <span>No green? Expect to be pinched!</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bars-section" onclick="burst(event)">
+      <div class="bars-icons">🍻 🎶 🕺 🎶 🍻</div>
+      <div class="bars-title">→ THEN WE HIT THE BARS ←</div>
+      <div class="bars-sub">Party wraps at 3PM · Bar crawl begins!</div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><span>🍀</span><div class="divider-line"></div></div>
+    <div class="footer-text">Erin Go Bragh &nbsp;·&nbsp; Drink Responsibly &nbsp;·&nbsp; See Ya Out There</div>
+  </div>
+</div>
+
+<script>
+  const emojis = ['🍀','☘️','✨','💚','🍺','🌿','🎉','⭐'];
+  const pc = document.getElementById('particles');
+  for (let i = 0; i < 35; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.cssText = `left:${Math.random()*100}%;font-size:${0.7+Math.random()*1.5}rem;animation-duration:${7+Math.random()*11}s;animation-delay:${Math.random()*12}s`;
+    pc.appendChild(p);
+  }
+  const cb = document.getElementById('cloverBg');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('span');
+    s.textContent = i % 3 === 0 ? '🍀' : '☘️';
+    cb.appendChild(s);
+  }
+  const poster = document.getElementById('poster');
+  let ticking = false;
+  document.addEventListener('mousemove', e => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const cx = window.innerWidth/2, cy = window.innerHeight/2;
+      const dx = (e.clientX-cx)/cx, dy = (e.clientY-cy)/cy;
+      poster.style.transform = `rotateY(${dx*16}deg) rotateX(${-dy*16}deg) scale(1.02)`;
+      poster.style.transition = 'transform 0.08s ease';
+      ticking = false;
+    });
+  });
+  document.addEventListener('mouseleave', () => {
+    poster.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+    poster.style.transition = 'transform 0.7s ease';
+  });
+  document.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    const cx = window.innerWidth/2, cy = window.innerHeight/2;
+    poster.style.transform = `rotateY(${(t.clientX-cx)/cx*13}deg) rotateX(${-(t.clientY-cy)/cy*13}deg) scale(1.02)`;
+  }, {passive:true});
+  document.addEventListener('touchend', () => {
+    poster.style.transform = '';
+    poster.style.transition = 'transform 0.6s ease';
+  });
+  function burst(e) {
+    const symbols = ['🍀','✨','💚','🌟','☘️','🎉','🍺','💫'];
+    for (let i = 0; i < 7; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      s.style.left = (e.clientX + (Math.random()-0.5)*80) + 'px';
+      s.style.top = (e.clientY + (Math.random()-0.5)*80) + 'px';
+      s.style.animationDelay = Math.random()*0.15 + 's';
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 1100);
+    }
+  }
+  poster.addEventListener('click', burst);
+</script>
+</body>
+</html>
